@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function PaywallPage() {
@@ -51,43 +54,15 @@ export default function PaywallPage() {
           1.5 TON
         </p>
 
-        {/* REAL TON PAYMENT BUTTON */}
+        {/* PAY BUTTON */}
         <button
-          onClick={async () => {
-            try {
-              const tonConnectUI = new window.TonConnectUI.TonConnectUI({
-                manifestUrl: "/tonconnect-manifest.json"
-              });
-
-              // 1 — Подключение кошелька
-              await tonConnectUI.connectWallet();
-
-              // 2 — Формируем транзакцию
-              const tx = {
-                validUntil: Math.floor(Date.now() / 1000) + 300, // 5 минут
-                messages: [
-                  {
-                    address: "UQCttA8O2Y79CbYHhiy3r4UyYtB2K_Z4VTjRwzY9V1n-a83M",
-                    amount: (1.5 * 1e9).toString() // 1.5 TON в нанотонах
-                  }
-                ]
-              };
-
-              // 3 — Отправляем транзакцию
-              await tonConnectUI.sendTransaction(tx);
-
-              // 4 — Переход на премиум-результат
-              window.location.href =
-                "/premium-result?img=" + encodeURIComponent(img);
-
-            } catch (err) {
-              console.error("Payment failed:", err);
-              alert("Payment canceled or failed.");
-            }
+          onClick={() => {
+            // ВРЕМЕННО: пропускаем оплату
+            router.push("/result?img=" + encodeURIComponent(img));
           }}
           className="btn-premium w-full py-4 text-xl rounded-2xl font-semibold transition-all"
         >
-          Pay 1.5 TON & Unlock Full Report
+          Unlock Full Report
         </button>
 
         {/* BACK LINK */}
