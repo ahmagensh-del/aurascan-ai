@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -14,7 +17,6 @@ export default function ResultPage() {
   // ---------------------------
   //  RUN FREE ANALYSIS (GROQ)
   // ---------------------------
-
   useEffect(() => {
     async function runAnalysis() {
       setLoading(true);
@@ -31,6 +33,7 @@ export default function ResultPage() {
         const data = await res.json();
         setAnalysis(data.analysis);
       } catch (e) {
+        console.error(e);
         setAnalysis("Error loading analysis. Try again.");
       }
 
@@ -39,8 +42,6 @@ export default function ResultPage() {
 
     runAnalysis();
   }, [img, blob]);
-
-  // ---------------------------
 
   const finalImg = blob || img;
 
@@ -54,7 +55,6 @@ export default function ResultPage() {
 
       {/* MAIN CONTENT */}
       <div className="max-w-2xl w-full text-center animate-fade">
-
         <h1 className="text-5xl font-bold mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.35)]">
           Your Aura Reading
         </h1>
@@ -70,7 +70,6 @@ export default function ResultPage() {
 
         {/* FREE ANALYSIS */}
         <div className="backdrop-blur-xl bg-white/5 border border-white/10 p-8 rounded-2xl shadow-[0_0_30px_rgba(130,150,255,0.2)] mb-10 text-left">
-
           <h2 className="text-2xl font-semibold mb-4">Free Aura Summary</h2>
 
           {loading ? (
