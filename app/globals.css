@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(195, 112, 255, 0.07), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(77, 255, 216, 0.1), transparent 35%),
+    radial-gradient(circle at 40% 80%, rgba(255, 106, 213, 0.07), transparent 40%),
+    #0b1021;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent 60%);
+  opacity: 0.6;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  animation: drift 10s linear infinite;
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  100% {
+    transform: translateY(-40px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: 18px;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, rgba(125, 233, 209, 0.35), rgba(193, 132, 255, 0.25), rgba(255, 106, 213, 0.35));
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: shimmer 10s linear infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #fff, #b3e9ff, #ffb3ec, #fff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 8s linear infinite;
+}
+
+.button-primary {
+  @apply px-5 py-3 rounded-xl font-semibold bg-gradient-to-r from-aurora-400 to-aurora-100 text-slate-950 shadow-lg shadow-aurora-400/20 transition duration-200 hover:brightness-110 active:scale-95;
+}
+
+.input-field {
+  @apply w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-aurora-200 focus:ring-2 focus:ring-aurora-200/50 transition;
+}
+
+.card-glow {
+  box-shadow: 0 0 40px rgba(125, 233, 209, 0.16), 0 0 120px rgba(193, 132, 255, 0.1);
+}
